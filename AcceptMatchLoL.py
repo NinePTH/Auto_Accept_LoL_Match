@@ -16,7 +16,7 @@ def autoAccept():
     global accepted, running
     running = True  # Set the flag to start the process
     while not accepted and running:
-        res = pyautogui.locateOnScreen("LoLAcceptButton.png", confidence=0.9)
+        res = pyautogui.locateOnScreen("LoLAcceptButton.png", confidence=0.85)
         if res is not None:
             print("Found at:")
             print(res)
@@ -31,7 +31,9 @@ def autoAccept():
 
 # Function to start the process in a separate thread
 def start_autoAccept():
-    global thread
+    print("Start Auto Accepting match")
+    global thread, accepted
+    accepted = False
     thread = threading.Thread(target=autoAccept)
     thread.start()
 
@@ -42,6 +44,7 @@ def stop_autoAccept():
 
 # Setting up the GUI
 app = tk.Tk()
+app.minsize(100, 100)
 app.title('Auto Accept LoL Match')
 
 # Start and Stop buttons
